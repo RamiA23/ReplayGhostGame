@@ -7,10 +7,16 @@ public class ReplayManager : MonoBehaviour
     public GameObject ghostPrefab;
     public Transform checkpoint;
     public SparkGuide spark;
+    public static ReplayManager instance;
 
     private List<Vector3> recordedPositions = new List<Vector3>();
     private bool isRewinding = false;
     private GameObject currentGhost;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Update()
     {
@@ -48,10 +54,15 @@ public class ReplayManager : MonoBehaviour
         currentGhost = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
         currentGhost.AddComponent<GhostReplay>().Initialize(recordedPositions);
 
-        player.position = checkpoint.position;
+        player.position = CheckpointManager.instance.GetCheckpointPosition();
         spark.ResetSpark();
 
         recordedPositions = new List<Vector3>();
         isRewinding = false;
+    }
+
+    public void ResetRecording()
+    {
+        recordedPositions.Clear();
     }
 }
