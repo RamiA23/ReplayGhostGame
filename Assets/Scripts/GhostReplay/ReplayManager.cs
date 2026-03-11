@@ -54,7 +54,7 @@ public class ReplayManager : MonoBehaviour
         currentGhost = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
         currentGhost.AddComponent<GhostReplay>().Initialize(recordedPositions);
 
-        player.position = CheckpointManager.instance.GetCheckpointPosition();
+        player.position = CheckpointManager.instance.GetCheckpointPosition() + Vector3.up * 1.5f;
         spark.ResetSpark();
 
         recordedPositions = new List<Vector3>();
