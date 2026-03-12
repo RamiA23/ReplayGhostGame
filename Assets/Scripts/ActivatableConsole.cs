@@ -71,8 +71,8 @@ public class ActivatableConsole : MonoBehaviour
         {
             consoleLight.enabled = true;
             consoleLight.color = activeColor;
-            consoleLight.intensity = 4f;
-            consoleLight.range = 6f;
+            consoleLight.intensity = 25f;
+            consoleLight.range = 12f;
         }
 
         // Play activation sound
