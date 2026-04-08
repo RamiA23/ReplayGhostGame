@@ -7,7 +7,11 @@ public class ReplayManager : MonoBehaviour
     public GameObject ghostPrefab;
     public Transform checkpoint;
     public SparkGuide spark;
+
     public static ReplayManager instance;
+
+    // Add reference to energy system
+    public EnergySystem energySystem;
 
     private List<Vector3> recordedPositions = new List<Vector3>();
     private bool isRewinding = false;
@@ -27,13 +31,29 @@ public class ReplayManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Rewind();
+            TryRewind();
         }
     }
 
     void Record()
     {
         recordedPositions.Add(player.position);
+    }
+
+    void TryRewind()
+    {
+        // BLOCK if no energy
+        if (energySystem == null || energySystem.currentEnergy <= 0)
+        {
+            Debug.Log("No energy to rewind!");
+            return;
+        }
+
+        // Consume energy
+        energySystem.UseReplay();
+
+        // Actually rewind
+        Rewind();
     }
 
     void Rewind()
@@ -55,6 +75,7 @@ public class ReplayManager : MonoBehaviour
         currentGhost.AddComponent<GhostReplay>().Initialize(recordedPositions);
 
         player.position = CheckpointManager.instance.GetCheckpointPosition() + Vector3.up * 1.5f;
+
         spark.ResetSpark();
 
         recordedPositions = new List<Vector3>();
