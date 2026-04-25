@@ -8,11 +8,23 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: 3ecbae7f8b1ae0040b246850206763c3
+  - enabled: 0
+    path: Assets/Scenes/LoadingScene.unity
+    guid: dddd4c42e9aae7e4495d48a2c41713b0
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 5762b82a549edd248a4a2c313e1de59e
   - enabled: 1
     path: Assets/Scenes/Level2.unity
     guid: 21e6080af10712c4882e7f6788ebc7ff
+  - enabled: 0
+    path: Assets/DungeonModularPack/Scenes/Level3.unity
+    guid: cc10df96022b19841ac18003dab61704
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: e01507be0592e47458ff801d6fe58f07
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 4ac5fc38423a05e48b222ccde37b4605
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

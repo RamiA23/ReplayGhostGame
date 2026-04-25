@@ -4,15 +4,22 @@ public class NarrativeTrigger : MonoBehaviour
 {
     public GameObject textUI;
 
-    void OnTriggerEnter(Collider other)
+    private Collider triggerCollider;
+
+    void Start()
     {
-        if (other.CompareTag("Player"))
-        {
-            textUI.SetActive(true);
-        }
+        triggerCollider = GetComponent<Collider>();
     }
-    private void OnTriggerExit(Collider other)
+
+    void Update()
     {
-        textUI.SetActive(false);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            bool isInside = triggerCollider.bounds.Contains(player.transform.position);
+
+            textUI.SetActive(isInside);
+        }
     }
 }

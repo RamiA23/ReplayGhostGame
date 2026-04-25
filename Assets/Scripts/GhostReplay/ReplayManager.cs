@@ -10,8 +10,11 @@ public class ReplayManager : MonoBehaviour
 
     public static ReplayManager instance;
 
-    // Add reference to energy system
     public EnergySystem energySystem;
+
+    //  NEW: Audio
+    public AudioClip rewindSound;
+    public float volume = 1.5f;
 
     private List<Vector3> recordedPositions = new List<Vector3>();
     private bool isRewinding = false;
@@ -42,17 +45,20 @@ public class ReplayManager : MonoBehaviour
 
     void TryRewind()
     {
-        // BLOCK if no energy
         if (energySystem == null || energySystem.currentEnergy <= 0)
         {
             Debug.Log("No energy to rewind!");
             return;
         }
 
-        // Consume energy
         energySystem.UseReplay();
 
-        // Actually rewind
+        //  PLAY SOUND HERE
+        if (rewindSound != null && Camera.main != null)
+        {
+            AudioSource.PlayClipAtPoint(rewindSound, Camera.main.transform.position, volume);
+        }
+
         Rewind();
     }
 
@@ -63,7 +69,6 @@ public class ReplayManager : MonoBehaviour
 
         isRewinding = true;
 
-        // Destroy old ghost
         if (currentGhost != null)
         {
             Destroy(currentGhost);
